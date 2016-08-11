@@ -6,10 +6,15 @@ class Rover
     @direction = direction
   end
 
-  def read_instruction(instructions)
+  def read_instruction(instructions = gets.chomp)
     instructions.split("").each do |command|
-
+      case command
+      when "L" then self.turn("L")
+      when "R" then self.turn("R")
+      when "M" then self.move
+      end
     end
+    return "#{@x} #{@y} #{@direction}"
   end
 
   def turn(command)
@@ -29,7 +34,6 @@ class Rover
       when "W" then @direction = "N"
       end
     end
-    puts "facing #{@direction}"
   end
 
   def move
@@ -39,7 +43,5 @@ class Rover
     when "S" then @y -= 1
     when "W" then @x -= 1
     end
-
-    puts "at location #{@x}, #{@y}"
   end
 end
