@@ -18,7 +18,6 @@ class Rover
       end
     end
     @@rover_locations << [@x, @y]
-    puts @@rover_locations
     return "#{@x} #{@y} #{@direction}"
   end
 
