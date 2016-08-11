@@ -1,5 +1,7 @@
 class Rover
 
+  @@rover_locations = []
+
   def initialize(x, y, direction, plateau)
     @x = x
     @y = y
@@ -15,6 +17,8 @@ class Rover
       when "M" then self.move
       end
     end
+    @@rover_locations << [@x, @y]
+    puts @@rover_locations
     return "#{@x} #{@y} #{@direction}"
   end
 
@@ -39,10 +43,10 @@ class Rover
 
   def move
     case @direction
-    when "N" then @y += 1 unless @y + 1 > @plateau.y
-    when "E" then @x += 1 unless @x + 1 > @plateau.x
-    when "S" then @y -= 1 unless @y - 1 < 0
-    when "W" then @x -= 1 unless @x - 1 < 0
+    when "N" then @y += 1 unless @y + 1 > @plateau.y || @@rover_locations.include?([@x, @y + 1])
+    when "E" then @x += 1 unless @x + 1 > @plateau.x || @@rover_locations.include?([@x + 1, @y])
+    when "S" then @y -= 1 unless @y - 1 < 0 || @@rover_locations.include?([@x, @y -1])
+    when "W" then @x -= 1 unless @x - 1 < 0 || @@rover_locations.include?([@x -1, @x])
     end
   end
 end
