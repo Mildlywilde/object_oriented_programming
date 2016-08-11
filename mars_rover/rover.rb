@@ -1,9 +1,10 @@
 class Rover
 
-  def initialize(x, y, direction)
+  def initialize(x, y, direction, plateau)
     @x = x
     @y = y
     @direction = direction
+    @plateau = plateau
   end
 
   def read_instruction(instructions = gets.chomp)
@@ -38,23 +39,38 @@ class Rover
 
   def move
     case @direction
-    when "N" then @y += 1
-    when "E" then @x += 1
-    when "S" then @y -= 1
-    when "W" then @x -= 1
+    when "N" then @y += 1 unless @y + 1 > @plateau.y
+    when "E" then @x += 1 unless @x + 1 > @plateau.x
+    when "S" then @y -= 1 unless @y - 1 < 0
+    when "W" then @x -= 1 unless @x - 1 < 0
     end
   end
 end
 
+class Plateau
+
+  attr_reader :x, :y
+
+  def initialize(x, y)
+    @x = x
+    @y = y
+  end
+
+end
+
+puts "enter plateau size"
+input = gets.chomp.split(" ")
+plateau = Plateau.new(input[0].to_i, input[1].to_i)
+
 puts "enter starting location for rover 1"
 input = gets.chomp.split(" ")
-wall_e = Rover.new(input[0].to_i, input[1].to_i, input[2])
+wall_e = Rover.new(input[0].to_i, input[1].to_i, input[2], plateau)
 puts "input instructions"
 wall_e_finish = wall_e.read_instruction
 
 puts "enter starting location for rover 2"
 input = gets.chomp.split(" ")
-johnny5 = Rover.new(input[0].to_i, input[1].to_i, input[2])
+johnny5 = Rover.new(input[0].to_i, input[1].to_i, input[2], plateau)
 puts "input instructions"
 johnny5_finish = johnny5.read_instruction
 
