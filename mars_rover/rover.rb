@@ -45,3 +45,18 @@ class Rover
     end
   end
 end
+
+puts "enter starting location for rover 1"
+input = gets.chomp.split(" ")
+wall_e = Rover.new(input[0].to_i, input[1].to_i, input[2])
+puts "input instructions"
+wall_e_finish = wall_e.read_instruction
+
+puts "enter starting location for rover 2"
+input = gets.chomp.split(" ")
+johnny5 = Rover.new(input[0].to_i, input[1].to_i, input[2])
+puts "input instructions"
+johnny5_finish = johnny5.read_instruction
+
+puts wall_e_finish
+puts johnny5_finish
