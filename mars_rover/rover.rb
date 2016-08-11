@@ -1,7 +1,8 @@
 class Rover
 
-  def initialize(location, direction)
-    @location = location
+  def initialize(x, y, direction)
+    @x = x
+    @y = y
     @direction = direction
   end
 
@@ -29,5 +30,16 @@ class Rover
       end
     end
     puts "facing #{@direction}"
+  end
+
+  def move
+    case @direction
+    when "N" then @y += 1
+    when "E" then @x += 1
+    when "S" then @y -= 1
+    when "W" then @x -= 1
+    end
+
+    puts "at location #{@x}, #{@y}"
   end
 end
