@@ -2,18 +2,26 @@ require_relative 'item.rb'
 
 class Receipt
 
-  def initialize(item)
-    @item = item
+  def initialize(item_array)
+    @item_array = item_array
   end
 
-  def calculate_tax
-    if @item.tax_exempt == true
-      price = @item.value
-    else
-      price = @item.value + (@item.value / 10.0)
+  def print_receipt
+
+    @item_array.each do |item|
+      puts item.value
     end
-    puts price
+
   end
+
+  # def calculate_tax
+  #   if @item.tax_exempt == true
+  #     price = @item.value
+  #   else
+  #     price = @item.value + (@item.value / 10.0)
+  #   end
+  #   puts price
+  # end
 
 
 
