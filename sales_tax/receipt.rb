@@ -8,24 +8,30 @@ class Receipt
   end
 
   def print_receipt
-
+    total_tax = 0
     @item_array.each do |item|
+      sales_tax = 0
+      import_tax = 0
+      if item.tax_exempt? == false
+        item_tax = ((item.value.to_i * 10) / 100.0).round(2)
+        total_tax += item_tax
+      end
+      if item.imported == true
+        import_tax = ((item.value.to_i * 5) / 100.0).round(2)
+        total_tax += import_tax
+      end
+
       puts "#{item.name} : #{item.value}"
+      puts "Sales Taxes: #{total_tax}"
       @total += item.value.to_f
     end
 
-    puts "Total : #{@total}"
+    puts "Sales Taxes: #{total_tax}"
+    puts "Total : #{@total + total_tax}"
 
   end
 
-  # def calculate_tax
-  #   if @item.tax_exempt == true
-  #     price = @item.value
-  #   else
-  #     price = @item.value + (@item.value / 10.0)
-  #   end
-  #   puts price
-  # end
+
 
 
 
