@@ -4,13 +4,17 @@ class Receipt
 
   def initialize(item_array)
     @item_array = item_array
+    @total = 0
   end
 
   def print_receipt
 
     @item_array.each do |item|
-      puts item.value
+      puts "#{item.name} : #{item.value}"
+      @total += item.value.to_f
     end
+
+    puts "Total : #{@total}"
 
   end
 

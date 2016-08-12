@@ -1,6 +1,6 @@
 class Item
 
-  attr_reader :tax_exempt, :imported, :value
+  attr_reader :tax_exempt, :imported, :value, :name
 
   def initialize(quantity, name, value)
     @quantity = quantity
