@@ -3,7 +3,7 @@ class Rover
   #define class variable to store hash of current rover locations
   @@rover_locations = {}
 
-  def initialize(x, y, direction, plateau)
+  def initialize(x, y, direction = 'N', plateau)
     @x = x
     @y = y
     @direction = direction
@@ -88,21 +88,21 @@ end
 #uncomment the following code to make program run as specified on alexa
 #leave commented to play with rovers on the command line
 
-# puts "enter plateau size"
-# input = gets.chomp.split(" ")
-# plateau = Plateau.new(input[0].to_i, input[1].to_i)
-#
-# puts "enter starting location for rover wall_e"
-# input = gets.chomp.upcase.split(" ")
-# wall_e = Rover.new("wall_e", input[0].to_i, input[1].to_i, input[2], plateau)
-# puts "input instructions"
-# wall_e_finish = wall_e.read_instruction
-#
-# puts "enter starting location for rover johnny5"
-# input = gets.chomp.upcase.split(" ")
-# johnny5 = Rover.new("johnny5", input[0].to_i, input[1].to_i, input[2], plateau)
-# puts "input instructions"
-# johnny5_finish = johnny5.read_instruction
-#
-# puts wall_e_finish
-# puts johnny5_finish
+puts "enter plateau size"
+input = gets.chomp.split(" ")
+plateau = Plateau.new(input[0].to_i, input[1].to_i)
+
+puts "enter starting location for rover wall_e"
+input = gets.chomp.upcase.split(" ")
+wall_e = Rover.new(input[0].to_i, input[1].to_i, input[2], plateau)
+puts "input instructions"
+wall_e_finish = wall_e.read_instruction
+
+puts "enter starting location for rover johnny5"
+input = gets.chomp.upcase.split(" ")
+johnny5 = Rover.new(input[0].to_i, input[1].to_i, input[2], plateau)
+puts "input instructions"
+johnny5_finish = johnny5.read_instruction
+
+puts wall_e_finish
+puts johnny5_finish
