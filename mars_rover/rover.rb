@@ -1,8 +1,9 @@
 class Rover
 
-  @@rover_locations = []
+  @@rover_locations = {}
 
-  def initialize(x, y, direction, plateau)
+  def initialize(name, x, y, direction, plateau)
+    @name = name
     @x = x
     @y = y
     @direction = direction
@@ -10,14 +11,13 @@ class Rover
   end
 
   def read_instruction(instructions = gets.chomp)
-    instructions.split("").each do |command|
+    instructions.upcase.split("").each do |command|
       case command
       when "L" then self.turn("L")
       when "R" then self.turn("R")
       when "M" then self.move
       end
     end
-    @@rover_locations << [@x, @y]
     return "#{@x} #{@y} #{@direction}"
   end
 
@@ -42,11 +42,12 @@ class Rover
 
   def move
     case @direction
-    when "N" then @y += 1 unless @y + 1 > @plateau.y || @@rover_locations.include?([@x, @y + 1])
-    when "E" then @x += 1 unless @x + 1 > @plateau.x || @@rover_locations.include?([@x + 1, @y])
-    when "S" then @y -= 1 unless @y - 1 < 0 || @@rover_locations.include?([@x, @y -1])
-    when "W" then @x -= 1 unless @x - 1 < 0 || @@rover_locations.include?([@x -1, @x])
+    when "N" then @y += 1 unless @y + 1 > @plateau.y || @@rover_locations.values.include?([@x, @y + 1])
+    when "E" then @x += 1 unless @x + 1 > @plateau.x || @@rover_locations.values.include?([@x + 1, @y])
+    when "S" then @y -= 1 unless @y - 1 < 0 || @@rover_locations.values.include?([@x, @y -1])
+    when "W" then @x -= 1 unless @x - 1 < 0 || @@rover_locations.values.include?([@x -1, @x])
     end
+    @@rover_locations[@name.to_sym] = [@x, @y]
   end
 end
 
@@ -61,21 +62,21 @@ class Plateau
 
 end
 
-puts "enter plateau size"
-input = gets.chomp.split(" ")
-plateau = Plateau.new(input[0].to_i, input[1].to_i)
-
-puts "enter starting location for rover 1"
-input = gets.chomp.split(" ")
-wall_e = Rover.new(input[0].to_i, input[1].to_i, input[2], plateau)
-puts "input instructions"
-wall_e_finish = wall_e.read_instruction
-
-puts "enter starting location for rover 2"
-input = gets.chomp.split(" ")
-johnny5 = Rover.new(input[0].to_i, input[1].to_i, input[2], plateau)
-puts "input instructions"
-johnny5_finish = johnny5.read_instruction
-
-puts wall_e_finish
-puts johnny5_finish
+# puts "enter plateau size"
+# input = gets.chomp.split(" ")
+# plateau = Plateau.new(input[0].to_i, input[1].to_i)
+#
+# puts "enter starting location for rover wall_e"
+# input = gets.chomp.upcase.split(" ")
+# wall_e = Rover.new("wall_e", input[0].to_i, input[1].to_i, input[2], plateau)
+# puts "input instructions"
+# wall_e_finish = wall_e.read_instruction
+#
+# puts "enter starting location for rover johnny5"
+# input = gets.chomp.upcase.split(" ")
+# johnny5 = Rover.new("johnny5", input[0].to_i, input[1].to_i, input[2], plateau)
+# puts "input instructions"
+# johnny5_finish = johnny5.read_instruction
+#
+# puts wall_e_finish
+# puts johnny5_finish
