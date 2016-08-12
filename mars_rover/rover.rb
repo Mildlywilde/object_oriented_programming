@@ -2,12 +2,27 @@ class Rover
 
   @@rover_locations = {}
 
-  def initialize(name, x, y, direction, plateau)
-    @name = name
+  def initialize(x, y, direction, plateau)
     @x = x
     @y = y
     @direction = direction
     @plateau = plateau
+
+    id = rand(9999).to_s
+    while @@rover_locations.values.include? [@x, @y]
+        puts "There's already a rover there, enter new coordinates"
+        input = gets.chomp.split(" ")
+        @x = input[0].to_i
+        @y = input[1].to_i
+    end
+
+    while @@rover_locations.keys.include?(id.to_sym)
+      id = rand(9999).to_s
+    end
+
+    @id = id
+    @@rover_locations[@id.to_sym] = [@x, @y]
+
   end
 
   def read_instruction(instructions = gets.chomp)
@@ -47,7 +62,7 @@ class Rover
     when "S" then @y -= 1 unless @y - 1 < 0 || @@rover_locations.values.include?([@x, @y -1])
     when "W" then @x -= 1 unless @x - 1 < 0 || @@rover_locations.values.include?([@x -1, @x])
     end
-    @@rover_locations[@name.to_sym] = [@x, @y]
+    @@rover_locations[@id.to_sym] = [@x, @y]
   end
 end
 
