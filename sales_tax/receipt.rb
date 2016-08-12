@@ -13,20 +13,20 @@ class Receipt
       sales_tax = 0
       import_tax = 0
       if item.tax_exempt? == false
-        item_tax = ((item.value.to_i * 10) / 100.0).round(2)
+        item_tax = ((item.value.to_f * 10.0) / 100.0)
+        puts item_tax
         total_tax += item_tax
       end
       if item.imported == true
-        import_tax = ((item.value.to_i * 5) / 100.0).round(2)
+        import_tax = ((item.value.to_f * 5.0) / 100.0)
         total_tax += import_tax
       end
 
       puts "#{item.name} : #{item.value}"
-      puts "Sales Taxes: #{total_tax}"
       @total += item.value.to_f
     end
 
-    puts "Sales Taxes: #{total_tax}"
+    puts "Sales Taxes: #{total_tax.round(2)}"
     puts "Total : #{@total + total_tax}"
 
   end
