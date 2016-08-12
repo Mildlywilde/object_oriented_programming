@@ -61,7 +61,7 @@ class Rover
     end
   end
 
-#define moving behaviour
+#define moving behaviour, ensure space being moved to is not inhabited or off the plateau
   def move
     case @direction
     when "N" then @y += 1 unless @y + 1 > @plateau.y || @@rover_locations.values.include?([@x, @y + 1])
