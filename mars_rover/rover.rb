@@ -1,5 +1,6 @@
 class Rover
 
+  #define class variable to store hash of current rover locations
   @@rover_locations = {}
 
   def initialize(x, y, direction, plateau)
@@ -8,7 +9,8 @@ class Rover
     @direction = direction
     @plateau = plateau
 
-    id = rand(9999).to_s
+
+#ensure rover will not spawn on top of another
     while @@rover_locations.values.include? [@x, @y]
         puts "There's already a rover there, enter new coordinates"
         input = gets.chomp.split(" ")
@@ -16,6 +18,8 @@ class Rover
         @y = input[1].to_i
     end
 
+#generate id and ensure id is unique
+    id = rand(9999).to_s
     while @@rover_locations.keys.include?(id.to_sym)
       id = rand(9999).to_s
     end
@@ -25,6 +29,7 @@ class Rover
 
   end
 
+#translate instructions to Left, Right, and Move commands
   def read_instruction(instructions = gets.chomp)
     instructions.upcase.split("").each do |command|
       case command
@@ -36,6 +41,7 @@ class Rover
     return "#{@x} #{@y} #{@direction}"
   end
 
+#define turning behaviour
   def turn(command)
     case command
     when "L"
@@ -55,6 +61,7 @@ class Rover
     end
   end
 
+#define moving behaviour
   def move
     case @direction
     when "N" then @y += 1 unless @y + 1 > @plateau.y || @@rover_locations.values.include?([@x, @y + 1])
@@ -66,6 +73,7 @@ class Rover
   end
 end
 
+#create plateau class to pass to rovers, ensuring they are on the same grid
 class Plateau
 
   attr_reader :x, :y
@@ -76,6 +84,9 @@ class Plateau
   end
 
 end
+
+#uncomment the following code to make program run as specified on alexa
+#leave commented to play with rovers on the command line
 
 # puts "enter plateau size"
 # input = gets.chomp.split(" ")
